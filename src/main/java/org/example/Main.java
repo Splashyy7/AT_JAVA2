@@ -15,5 +15,7 @@ public class Main {
         app.post("/echo", controller::postEcho);
         app.get("/saudacao/{nome}", controller::getSaudacao);
         app.post("/alunos", controller::createAluno);
+        app.get("/alunos", controller::getAllAlunos);
+        app.get("/alunos/{email}", controller::getAlunoByEmail);
     }
 }

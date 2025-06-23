@@ -45,4 +45,25 @@ public class ApiController {
         ctx.status(201);
         ctx.json(novoAluno);
     }
+
+    //1.6
+    public void getAllAlunos(Context ctx) {
+        ctx.json(bancoDeDadosAlunos);
+    }
+
+    public void getAlunoByEmail(Context ctx) {
+        String emailBusca = ctx.pathParam("email");
+
+        Aluno alunoEncontrado = bancoDeDadosAlunos.stream()
+                .filter(aluno -> aluno.getEmail().equalsIgnoreCase(emailBusca))
+                .findFirst()
+                .orElse(null);
+
+        if (alunoEncontrado != null) {
+            ctx.json(alunoEncontrado);
+        } else {
+            ctx.status(404);
+            ctx.json(Map.of("erro", "Aluno não encontrado para o email: " + emailBusca));
+        }
+    }
 }
