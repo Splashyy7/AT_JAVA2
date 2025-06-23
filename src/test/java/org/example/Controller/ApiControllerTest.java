@@ -20,6 +20,7 @@ class ApiControllerTest {
             app.get("/hello", controller::getHello);
             var response = client.get("/hello");
             assertEquals(200, response.code());
+            assertNotNull(response.body());
             assertEquals("Hello, Javalin!", response.body().string());
         });
     }
@@ -62,6 +63,7 @@ class ApiControllerTest {
             var getResponse = client.get("/alunos/" + alunoParaCadastrar.getEmail());
 
             assertEquals(200, getResponse.code());
+            assertNotNull(getResponse.body());
             Aluno alunoRecuperado = new ObjectMapper().readValue(getResponse.body().string(), Aluno.class);
             assertEquals(alunoParaCadastrar.getNome(), alunoRecuperado.getNome());
             assertEquals(alunoParaCadastrar.getEmail(), alunoRecuperado.getEmail());
@@ -97,6 +99,7 @@ class ApiControllerTest {
 
             assertEquals(200, getResponse.code());
 
+            assertNotNull(getResponse.body());
             List<Aluno> listaRecuperada = new ObjectMapper().readValue(
                     getResponse.body().string(),
                     new TypeReference<List<Aluno>>() {}
